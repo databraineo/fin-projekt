@@ -4,11 +4,11 @@ import sqlalchemy
 import configparser
 
 
-def connect_postgres(abschnitt="local_postgres"):
+def connect_postgres(dateiname="config.ini", abschnitt="local_postgres"):
     "Verbindung zu lokaler Postgres-Datenbank"
     # Zugangsdaten aus der config-Datei einlesen
     config = configparser.ConfigParser()
-    config.read("config.ini")
+    config.read(dateiname)
     user = config[abschnitt]["DB_USER"]
     pw = config[abschnitt]["DB_PW"]
     address = config[abschnitt]["DB_ADDRESS"]
