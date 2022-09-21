@@ -17,3 +17,20 @@ create table finance.earnings_quarter (
 -- Fremdschlüssel
 ALTER TABLE finance.earnings_quarter ADD CONSTRAINT earnings_quarter_fk 
 	FOREIGN KEY (symbol) REFERENCES finance.symbols(symbol);
+
+create table finance.history (
+	symbol varchar(4),
+	"date" date,
+	"open" numeric(15, 6),
+	high numeric(15, 6),
+	low numeric(15, 6),
+	"close" numeric(15, 6),
+	volume bigint,
+	primary key(symbol, "date")
+);
+
+ALTER TABLE finance.history ADD CONSTRAINT history_fk 
+	FOREIGN KEY (symbol) REFERENCES finance.symbols(symbol);
+
+
+
