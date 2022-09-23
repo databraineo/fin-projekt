@@ -68,6 +68,8 @@ def insert_history(con, ticker, schema="finance"):
     query = f"""select max(date)+2 from {schema}.history h 
         where symbol = '{symbol}'"""
     max_datum = pd.read_sql(query, con).iloc[0, 0]
+    if max_datum is None:
+        max_datum = "2000-01-02"
     df = ticker.history(start=max_datum)
     # Wenn die Zeilenanzahl größer als 0
     if df.shape[0] > 0:
