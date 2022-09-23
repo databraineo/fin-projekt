@@ -1,12 +1,17 @@
 import tools
 import yfinance as yf
+import pandas as pd
 
 schema = "finance"
-symbole = ["AAPL", "TSLA", "MSFT", "AMZN"]
 
-con = tools.connect_postgres(abschnitt="azure_postgres")
+con = tools.connect_postgres(abschnitt="azure_postgres_testuser")
 
-for s in symbole:
+query = f"select * from {schema}.load_symbols"
+df = pd.read_sql(query, con)
+print(df)
+
+
+for s in df["symbol"]:
     print(s)
     t = yf.Ticker(s)
-    tools.insert_history(con, t)
+    tools.insert_history(con, t, schema)
